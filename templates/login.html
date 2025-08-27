@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Physicks Cure Mentor Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* 🌙 Moon Theme Background */
+    body {
+      background: radial-gradient(circle at top, #0d0d1a, #000000 90%);
+      font-family: 'Segoe UI', sans-serif;
+      color: #e0f7fa;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+
+    /* Floating Stars */
+    body::before {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
+      animation: moveStars 120s linear infinite;
+    }
+    @keyframes moveStars {
+      from { transform: translate(0, 0); }
+      to { transform: translate(-100px, -100px); }
+    }
+
+    /* Login Card */
+    .login-card {
+      position: relative;
+      background: rgba(15, 15, 15, 0.9);
+      padding: 40px 30px;
+      border-radius: 20px;
+      width: 380px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      z-index: 1;
+    }
+
+    .moon {
+      font-size: 45px;
+      color: gold;
+      text-shadow: 0 0 12px #ffeb3b;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #fff;
+      text-shadow: 0 0 15px #00f7ff, 0 0 25px rgba(0, 247, 255, 0.6);
+      margin-bottom: 25px;
+    }
+
+    /* Inputs - Neon Glow */
+    input {
+      background: transparent;
+      border: 2px solid #0ff; /* neon cyan border */
+      border-radius: 10px;
+      padding: 12px 40px 12px 12px;
+      width: 100%;
+      color: #fff;
+      font-weight: bold;
+      text-shadow: 0 0 8px #0ff, 0 0 15px #0ff; /* Glow effect */
+      margin-bottom: 20px;
+    }
+
+    input::placeholder {
+      color: #aaa;
+      text-shadow: 0 0 5px #0ff; /* glowing placeholder */
+      opacity: 0.8;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #ff00ff; /* neon pink */
+      box-shadow: 0 0 10px #ff00ff, 0 0 25px #ff00ff;
+    }
+
+    /* Username purple glow */
+    input[name="username"] {
+      border-color: #bb86fc;
+      text-shadow: 0 0 6px #bb86fc;
+    }
+    input[name="username"]:focus {
+      box-shadow: 0 0 15px #bb86fc;
+    }
+
+    /* Password container */
+    .password-container {
+      position: relative;
+      width: 100%;
+    }
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 18px;
+      color: #00ff88; /* neon green */
+      text-shadow: 0 0 8px #00ff88;
+      transition: 0.3s;
+    }
+    .toggle-password:hover {
+      transform: translateY(-50%) scale(1.2);
+      color: #00ffaa;
+    }
+
+    /* Buttons */
+    .btn-login {
+      background: #00c6ff;
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 198, 255, 0.7);
+      transition: 0.3s ease-in-out;
+    }
+    .btn-login:hover {
+      background: #0072ff;
+      box-shadow: 0 0 25px rgba(0, 198, 255, 1);
+      transform: scale(1.05);
+    }
+
+    .btn-home {
+      margin-top: 12px;
+      background: linear-gradient(45deg, #ff6600, #ffcc00);
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 198, 0, 0.7);
+      transition: 0.3s ease-in-out;
+    }
+    .btn-home:hover {
+      background: linear-gradient(45deg, #ffcc00, #ff6600);
+      box-shadow: 0 0 25px #ffcc00;
+      transform: scale(1.05);
+    }
+
+    /* Error Box */
+    .error {
+      background: rgba(231, 76, 60, 0.9);
+      color: white;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      font-weight: bold;
+      text-shadow: 0 0 8px #ff4444;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="moon">🌙</div>
+    <h2>Physicks Cure Mentor Login</h2>
+
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" action="/login">
+      <input type="text" name="username" placeholder="👤 Username" required>
+
+      <div class="password-container">
+        <input type="password" id="password" name="password" placeholder="🔒 Password" required>
+        <span class="toggle-password" onclick="togglePassword()">👁️</span>
+      </div>
+
+      <button type="submit" class="btn-login">Login</button>
+    </form>
+
+    <a href="{{ url_for('home') }}">
+      <button type="button" class="btn-home">🏠 Go Home</button>
+    </a>
+  </div>
+
+  <script>
+    function togglePassword() {
+      var input = document.getElementById("password");
+      input.type = input.type === "password" ? "text" : "password";
+    }
+  </script>
+</body>
+</html>

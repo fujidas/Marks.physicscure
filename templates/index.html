@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Physicks Cure - Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* Space Stardust Background */
+    body {
+      background: url("https://www.transparenttextures.com/patterns/stardust.png"),
+        radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+      background-size: cover;
+      background-attachment: fixed;
+      color: #fff;
+      font-family: "Orbitron", "Segoe UI", sans-serif;
+      text-align: center;
+    }
+
+    /* Neon Glow Heading */
+    h1 {
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff, 0 0 20px cyan, 0 0 40px blue, 0 0 80px purple;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #00ffff, 0 0 20px cyan, 0 0 40px blue;
+      }
+
+      to {
+        text-shadow: 0 0 20px cyan, 0 0 40px magenta, 0 0 80px #00ffff;
+      }
+    }
+
+    /* Section Titles */
+    h4 {
+      color: #ff00ff;
+      text-shadow: 0 0 10px #ff00ff, 0 0 20px magenta, 0 0 40px cyan;
+    }
+
+    /* Logo Glow */
+    .logo-glow {
+      filter: drop-shadow(0 0 10px #00ffff) drop-shadow(0 0 25px #00e6e6);
+    }
+
+    /* Hero Image */
+    .hero-img {
+      border-radius: 20px;
+      box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .hero-img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 30px magenta, 0 0 60px cyan;
+    }
+
+    /* Neon Buttons */
+    .btn-neon {
+      position: relative;
+      display: inline-block;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 1.2rem;
+      padding: 12px 30px;
+      margin: 10px;
+      border: 2px solid #00ffff;
+      border-radius: 30px;
+      background: transparent;
+      box-shadow: 0 0 10px #00ffff, inset 0 0 10px #00ffff;
+      transition: 0.3s;
+    }
+
+    .btn-neon:hover {
+      background: #00ffff;
+      color: #000;
+      transform: scale(1.1);
+      box-shadow: 0 0 25px cyan, 0 0 50px magenta, 0 0 80px lime;
+    }
+
+    /* Gallery Images */
+    .gallery img {
+      border-radius: 15px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      box-shadow: 0 0 10px #0ff, 0 0 20px #08f;
+      width: 100%;
+      height: auto;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px magenta, 0 0 40px cyan;
+    }
+
+    /* 🔥 Slideshow Effect for Gallery */
+    .slideshow {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      margin: auto;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 0 20px cyan, 0 0 40px magenta;
+    }
+
+    .slideshow img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow img.active {
+      opacity: 1;
+      position: relative;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container text-center mt-5">
+
+    <!-- Logo -->
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="mb-4 logo-glow" width="180">
+
+    <!-- Welcome Title -->
+    <h1>Welcome to Physicks Cure</h1>
+    <p class="lead">A Student Management & Rank Card System</p>
+
+    <!-- Hero Image -->
+    <div class="mt-4">
+      <img src="{{ url_for('static', filename='classroom.jpg') }}" alt="Classroom" width="500"
+        class="img-fluid hero-img mb-4">
+    </div>
+
+    <!-- Instructions -->
+    <h4>Instructions:</h4>
+    <p>👉 Students can check their results in the <b>Student Zone</b>.</p>
+    <p>👉 Teachers can login via the <b>Teacher Panel</b>.</p>
+    <p>👉 Rank cards are auto-generated with performance details.</p>
+
+    <!-- Buttons -->
+    <div class="mt-4">
+      <a href="{{ url_for('view') }}" class="btn-neon">🎓 Student Zone</a>
+      <a href="{{ url_for('login') }}" class="btn-neon">👨‍🏫 Teacher Panel</a>
+    </div>
+
+    <!-- Gallery Slideshow -->
+    <div class="mt-5 gallery">
+      <h4>Gallery</h4>
+      <div class="slideshow">
+        {% for img in images %}
+        <img src="{{ url_for('static', filename='uploads/' ~ img) }}" class="{% if loop.first %}active{% endif %}">
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 🔥 Slideshow Script -->
+  <script>
+    let slides = document.querySelectorAll('.slideshow img');
+    let current = 0;
+
+    function showSlide() {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }
+
+    setInterval(showSlide, 3000); // 3 sec change
+  </script>
+</body>
+
+</html>

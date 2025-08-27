@@ -425,7 +425,7 @@ def forgot():
 @app.route("/")
 def home():
     images = load_images()
-    return render_template("home.html", images=images)
+    return render_template("index.html", images=images)
 if __name__ == "__main__":
     app.run()
 
